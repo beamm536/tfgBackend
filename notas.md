@@ -26,3 +26,20 @@ python.exe -m pip install --upgrade pip #actualizar
 ```
 pip freeze > requirements.txt
 ```
+
+
+
+### para probar el funcionamiento en el entorno en que lo hemos creado
+```
+uvicorn main:app --reload 
+```
+
+*sale not found (por parte de datos, que no han sido pasados como parametros)*
+
+pero si a la url, le damos los parametros que necesita para su funcionamiento, si que obtenemos respuesta de nuestro servidor.
+
+> http://127.0.0.1:8000/recommendations?lat=40.4168&lng=-3.7038
+
+![demo correcto funcionamiento del server](image.png)
+![consola-demo](image-1.png)
+![res-server-ok](image-2.png)
