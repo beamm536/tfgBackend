@@ -5,7 +5,10 @@
 ---
 ### Crear entorno virtual
 > creado un entorno virtual con el comando ```python -m venv venv```
-lo que crea una carpeta venv/ que contiene las instalaciones de python y de pip que vamos a utilizar
+
+- lo que crea una carpeta venv/ que contiene las instalaciones de python y de pip que vamos a utilizar
+
+
 ---
 
 ---
