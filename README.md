@@ -9,7 +9,7 @@
 - lo que crea una carpeta venv/ que contiene las instalaciones de python y de pip que vamos a utilizar
 
 
----
+
 
 ---
 ### Activar entorno virtual creado
