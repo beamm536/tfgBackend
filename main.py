@@ -44,7 +44,7 @@ def get_recommendations(
 
     params = {
         "location": f"{lat},{lng}",
-        "radius": 5000,  #radio de búsqueda en metros
+        "radius": 10000,  #radio de búsqueda en metros
         "type": type,
         "key": GOOGLE_API_KEY,
     }
