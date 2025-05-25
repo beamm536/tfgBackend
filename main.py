@@ -84,7 +84,7 @@ def get_place_details(place_id: str):
     
     params = {
         "place_id": place_id,
-        "fields": "name,formatted_address,photos,rating,editorial_summary,website,url",
+        "fields": "name,formatted_address,photos,rating,editorial_summary,website,url,opening_hours,reviews,types",
         "key": GOOGLE_API_KEY,
     }
     
@@ -92,6 +92,23 @@ def get_place_details(place_id: str):
     data = response.json()
     result = data.get("result", {})
     
+     # Obtener sugerencias desde types
+    types = result.get("types", [])
+    suggestions = []
+    for tipo in types:
+        suggestions.append({
+            "text": f"Descubre lugares tipo: {tipo.replace('_', ' ')}",
+            "imageUrl": f"https://source.unsplash.com/100x100/?{tipo}"
+        })
+
+    # Convertir reviews si existen
+    reviews = []
+    for r in result.get("reviews", []):
+        reviews.append({
+            "authorName": r.get("author_name"),
+            "rating": r.get("rating"),
+            "text": r.get("text")
+        })
   
     return{
         "name": result.get("name"),
@@ -101,6 +118,10 @@ def get_place_details(place_id: str):
         "website": result.get("website"),
         "url": result.get("url"),
         "photoUrl": get_photo_url(result),
+        "openingHours": result.get("opening_hours", {}).get("weekday_text", []),
+        "reviews": reviews,
+        "suggestions": suggestions,
+        "types": types
     }
   
   
