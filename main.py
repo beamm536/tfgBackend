@@ -57,6 +57,7 @@ def get_recommendations(
     recommendations = []
     for place in data.get("results", []):
         recommendations.append({
+            "placeId": place.get("place_id"),
             "name": place.get("name"),
             "address": place.get("vicinity"),
             "rating": place.get("rating"),
@@ -70,6 +71,39 @@ def get_recommendations(
         
     return {"recommendations": recommendations}
 
+
+#nuevo endpoint para los detalles de las recomendaciones - GOOGLE PLACES DETAILS
+@app.get("/place-details")
+def get_place_details(place_id: str):
+    """
+    Obtener detalles de un lugar específico.
+    :param place_id: ID del lugar.
+    :return: Detalles del lugar.
+    """
+    url = f"https://maps.googleapis.com/maps/api/place/details/json"
+    
+    params = {
+        "place_id": place_id,
+        "fields": "name,formatted_address,photos,rating,editorial_summary,website,url",
+        "key": GOOGLE_API_KEY,
+    }
+    
+    response = requests.get(url, params=params)
+    data = response.json()
+    result = data.get("result", {})
+    
+  
+    return{
+        "name": result.get("name"),
+        "address": result.get("formatted_address"),
+        "rating": result.get("rating"),
+        "summary": result.get("editorial_summary", {}).get("overview", ""),
+        "website": result.get("website"),
+        "url": result.get("url"),
+        "photoUrl": get_photo_url(result),
+    }
+  
+  
 #funcion para la obtencion de la foto
 def get_photo_url(place):
     """
