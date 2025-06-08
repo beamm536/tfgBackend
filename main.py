@@ -53,6 +53,9 @@ def get_recommendations(
     response = requests.get(url, params=params)
     data = response.json()
     
+    print("GOOGLE API PLACES_ RESPONSE")
+    print(data)
+    
     #respuesta que vamos a recibir desde mi app-android
     recommendations = []
     for place in data.get("results", []):
